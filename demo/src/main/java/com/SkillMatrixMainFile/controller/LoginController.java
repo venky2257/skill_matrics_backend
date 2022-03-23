@@ -71,19 +71,20 @@ public class LoginController {
 		
 	}
 	
+
 	
 	
-	
-	@RequestMapping(value = "/home", method = RequestMethod.POST)
-	public List<EmployeeDetails> home(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password ) throws SQLException {
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public List<EmployeeDetails> home(@RequestBody Map<String, Object> employee) throws SQLException {
+		System.out.println(employee);
+		String email = employee.get("email").toString();
 		List<EmployeeDetails> employeeDetails = new ArrayList();
- 		ResultSet rs = dbutils.ValidateLogin(email, password);
+ 		ResultSet rs = dbutils.ValidateLogin(email);
 		
 		while(rs.next())  {
 			int employeeId = rs.getInt("id");
-			System.out.println(employeeId);
-		    if(email.equals(rs.getString("email")) && password.equals(rs.getString("password"))) {
-		    	List<EmployeeProject> empDetail = new ArrayList();
+		
+	    	List<EmployeeProject> empDetail = new ArrayList();
     			
 		        		
 		        			ResultSet empDetails = dbutils.GetEmployeeProjects(employeeId, rs.getString("role"));
@@ -102,10 +103,7 @@ public class LoginController {
 		        			
 		        		
 		        		
-		        			
-		        			
-		        }
-	}
+		     }
 		 
 		
 		System.out.println(employeeDetails);

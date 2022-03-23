@@ -58,10 +58,10 @@ public class dbutils {
 	}
 	
 	
-	public  static ResultSet ValidateLogin(String email, String password) throws SQLException {
+	public  static ResultSet ValidateLogin(String email) throws SQLException {
 		Connection con = dbutils.getRemoteConnection();
 		Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("select * FROM employee where email='" +email+"' and password = '"+password+"'");
+        ResultSet rs = st.executeQuery("select * FROM employee where email='" +email+"'");
         
       
         return rs;
